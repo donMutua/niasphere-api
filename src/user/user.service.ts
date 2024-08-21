@@ -13,12 +13,25 @@ export class UserService {
     return await this.UserRepo.save(user);
   }
 
+  async findByEmail(email: string) {
+    return await this.UserRepo.findOne({
+      where: {
+        email,
+      },
+    });
+  }
+
   findAll() {
     return `This action returns all user`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.UserRepo.findOne({
+      where: {
+        id,
+      },
+      select: ['firstName', 'lastName', 'avatarUrl'],
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
