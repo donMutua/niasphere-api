@@ -29,7 +29,8 @@ export class UserController {
     return this.userService.findOne(req.user.id);
   }
 
-  @Patch(':id')
+  // @UseGuards(JwtAuthGuard)
+  @Patch('profile/:id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }

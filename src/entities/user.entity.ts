@@ -3,10 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
+import { AboutMe } from './aboutMe.entity';
 
 @Entity()
 export class User {
@@ -30,6 +33,10 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToOne(() => AboutMe, (aboutMe) => aboutMe.user, { cascade: true })
+  @JoinColumn()
+  aboutMe: AboutMe;
 
   @BeforeInsert()
   async hashPassword() {
